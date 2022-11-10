@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose  = require('mongoose');
 const app = express();
+const getLocation = require('./modules/location');
 
 const verifyUser = require('./auth.js');
 
@@ -19,5 +20,8 @@ app.get('/test', (request, response) => {
     response.send('test request received')
   
 });
+
+// route for getting user submitted location
+app.get('/location', getLocation);
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
