@@ -6,7 +6,9 @@ const cors = require('cors');
 const mongoose  = require('mongoose');
 const app = express();
 
-const verifyUser = require('./modules/auth.js');
+const getWeather = require('./modules/weather');
+const verifyUser = require('./auth.js');
+
 
 app.use(cors());
 app.use(express.json());
@@ -27,3 +29,15 @@ app.put('//:id', Handler.updateProfile);
 app.get('/user', Handler.handleGetUser); 
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
+
+app.get('/weather', weatherHandler);
+
+function weatherHandler(request, response) {
+    const { lat, lon } = request.query;
+    getWeather(lat, lon)
+      .then(summaries => response.send(summaries))
+      .catch((error) => {
+        console.error(error);
+        response.status(500).send(error.message);
+      });
+  }
