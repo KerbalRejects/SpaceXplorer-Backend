@@ -3,17 +3,17 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const mongoose  = require('mongoose');
+// const mongoose  = require('mongoose');
 const app = express();
 const getLocation = require('./modules/location');
 
-const verifyUser = require('./auth.js');
+// const verifyUser = require('./auth.js');
 
 app.use(cors());
 app.use(express.json());
-app.use(verifyUser);
+// app.use(verifyUser);
 const PORT = process.env.PORT || 3002;
-mongoose.connect(process.env.MONGOCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect(process.env.MONGOCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.get('/test', (request, response) => {
 
