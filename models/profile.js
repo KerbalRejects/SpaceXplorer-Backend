@@ -9,11 +9,18 @@ const profileSchema = new Schema ({
     email: String,
     isFavorited: Boolean,
     favorites: {
-        object: {map: String, 
-                lat: String, 
-                lon: String},
         location: String,
         date: String,
+        astroData: {
+                astroMap: String,
+                lat: String, 
+                lon: String,
+                },
+        weather: {
+                desc: String, 
+                lowTemp: String, 
+                highTemp: String
+                },
         comment: String
     }
 });

@@ -1,13 +1,13 @@
 'use strict';
 
 // import schema model
-// const Profile = require('../models/');
+const Profiles = require('../models/profile');
 
 const Handler = {};
 
 Handler.getProfile = async (request, response, next) => {
     try {
-        const profiles = await Profile.find({ email: request.user.email });
+        const profiles = await Profiles.find({ email: request.user.email });
         response.status(200).send(profiles);
     } catch (error) {
         error.customMessage = 'Something went wrong when getting your profile';
@@ -16,10 +16,10 @@ Handler.getProfile = async (request, response, next) => {
     }
 };
 
-Handler.createProfile = async (request, response, next) => {
+Handler.createFavorite = async (request, response, next) => {
     try {
-        const profile = await Profile.create({ ...request.body, email: request.user.email });
-        response.status(201).send(profile);
+        const favorite = await Profiles.create({ ...request.body, email: request.user.email });
+        response.status(201).send(favorite);
     } catch (error) {
         error.customMessage = 'Something went wrong when creating your profile';
         console.error(error.customMessage + error);
@@ -27,26 +27,26 @@ Handler.createProfile = async (request, response, next) => {
     }
 };
 
-Handler.deleteProfile = async (request, response, next) => {
+Handler.deleteFavorite = async (request, response, next) => {
     try {
-        await Profile.findByIdAndDelete({ ...request.params.id, email: request.user.email });
-        response.status(200).send('your profile is deleted!');
+        await Profiles.findByIdAndDelete({ ...request.params.id, email: request.user.email });
+        response.status(200).send('Your favorite is deleted!');
     } catch (error) {
-        error.customMessage = 'Something went wrong when deleting your profile: ';
+        error.customMessage = 'Something went wrong when deleting your favorite: ';
         console.error(error.customMessage + error);
         next(error);
     }
 };
 
-Handler.updateProfile = async (request, response, next) => {
+Handler.updateFavorite = async (request, response, next) => {
     const { id } = request.params;
     try {
         // Model.findByIdAndUpdate(id, updatedData, options)
-        const profile = await Profile.findOne({ _id: id, email: request.user.email });
-        if (!profile) response.status(400).send('unable to update profile');
+        const comment = await Profiles.findOne({ _id: id, email: request.user.email });
+        if (!comment) response.status(400).send('Unable to update comment');
         else {
-            const updatedProfile = await Profile.findByIdAndUpdate(id, { ...request.body, email: request.user.email }, { new: true, overwrite: true });
-            response.status(200).send(updatedProfile);
+            const updatedComment = await Profiles.findByIdAndUpdate(id, { ...request.body, email: request.user.email }, { new: true, overwrite: true });
+            response.status(200).send(updatedComment);
         }
     } catch (error) {
         error.customMessage = 'Something went wrong when updating your profile: ';
