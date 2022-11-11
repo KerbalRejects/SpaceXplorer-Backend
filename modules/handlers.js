@@ -2,6 +2,7 @@
 
 // import schema model
 // const Profile = require('../models/');
+
 const Handler = {};
 
 Handler.getProfile = async (request, response, next) => {
