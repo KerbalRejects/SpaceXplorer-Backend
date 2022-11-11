@@ -6,7 +6,7 @@ const cors = require('cors');
 const mongoose  = require('mongoose');
 const app = express();
 
-const verifyUser = require('./auth.js');
+const verifyUser = require('./modules/auth.js');
 
 app.use(cors());
 app.use(express.json());
@@ -19,5 +19,11 @@ app.get('/test', (request, response) => {
     response.send('test request received')
   
 });
+
+app.get('/', Handler.getProfile);
+app.post('/', Handler.createProfile);
+app.delete('//:id', Handler.deleteProfile);
+app.put('//:id', Handler.updateProfile);
+app.get('/user', Handler.handleGetUser); 
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
