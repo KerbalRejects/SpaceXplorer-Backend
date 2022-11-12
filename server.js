@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose  = require('mongoose');
 const app = express();
+const getLocation = require('./modules/location');
 
 const getWeather = require('./modules/weather');
 const verifyUser = require('./auth.js');
@@ -22,11 +23,16 @@ app.get('/test', (request, response) => {
   
 });
 
+
+// route for getting user submitted location
+app.get('/location', getLocation);
+
 app.get('/', Handler.getProfile);
 app.post('/', Handler.createFavorite);
 app.delete('//:id', Handler.deleteFavorite);
 app.put('//:id', Handler.updateFavorite);
 app.get('/user', Handler.handleGetUser); 
+
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
