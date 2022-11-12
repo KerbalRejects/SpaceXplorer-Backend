@@ -1,0 +1,35 @@
+'use strict';
+
+const axios = require('axios');
+
+
+function celestialBodies (lat, lon, date, time) {
+
+    const options = {
+        method: 'GET',
+        url: 'https://astronomy.p.rapidapi.com/api/v2/bodies/positions',
+        params: {
+          latitude: `${lat}`,
+          longitude: `${lon}`,
+          from_date: `${date}`,
+          to_date: `${date}`,
+          elevation: '500',
+          time: `${time}`
+        },
+        headers: {
+          'X-RapidAPI-Key': `${process.env.RAPID_API}`,
+          'X-RapidAPI-Host': 'astronomy.p.rapidapi.com'
+        }
+      };
+      
+      axios.request(options).then(function (response) {
+          console.log(response.data);
+      }).catch(function (error) {
+          console.error(error);
+      });
+      
+
+}
+
+module.exports = bodiesapi;
+
