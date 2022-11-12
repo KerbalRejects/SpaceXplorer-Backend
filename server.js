@@ -8,12 +8,12 @@ const app = express();
 const getLocation = require('./modules/location');
 
 const getWeather = require('./modules/weather');
-const verifyUser = require('./auth.js');
+// const verifyUser = require('./auth.js');
 
 const Handler = require('./modules/handlers');
 app.use(cors());
 app.use(express.json());
-app.use(verifyUser);
+// app.use(verifyUser);
 const PORT = process.env.PORT || 3002;
 mongoose.connect(process.env.MONGOCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
 
