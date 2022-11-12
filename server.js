@@ -9,7 +9,7 @@ const app = express();
 const getWeather = require('./modules/weather');
 const verifyUser = require('./auth.js');
 
-
+const Handler = require('./modules/handlers');
 app.use(cors());
 app.use(express.json());
 app.use(verifyUser);
@@ -23,9 +23,9 @@ app.get('/test', (request, response) => {
 });
 
 app.get('/', Handler.getProfile);
-app.post('/', Handler.createProfile);
-app.delete('//:id', Handler.deleteProfile);
-app.put('//:id', Handler.updateProfile);
+app.post('/', Handler.createFavorite);
+app.delete('//:id', Handler.deleteFavorite);
+app.put('//:id', Handler.updateFavorite);
 app.get('/user', Handler.handleGetUser); 
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
