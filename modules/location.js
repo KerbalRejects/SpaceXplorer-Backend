@@ -4,8 +4,8 @@ const axios = require('axios');
 const cache = require('../cache.js');
 
 function getLocation(request, response) {
-  const searchQuery = request.query;
-  const key = 'location-' + request.query;
+  const {searchQuery} = request.query;
+  const key = 'location-' + searchQuery;
   const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.LOCATIONIQ_KEY}&q=${searchQuery}&format=json`;
 
   if (cache[key] && Date.now() - cache[key].timestamp < 3600000) {
@@ -20,11 +20,12 @@ function getLocation(request, response) {
         cache[key].timestamp = Date.now();
         cache[key].date = Date().toLocaleString();
         const searchedLocation = locationResponse.data.slice(0, 1).map(location => new Location(location, cache[key].date));
+        console.log('searchedLocation: ', searchedLocation);
         cache[key] = searchedLocation;
         response.status(200).send(cache[key]);
       })
       .catch (error => {
-        console.error('getLocation() axios error: ', error);
+        console.error('getLocation axios error: ', error);
         response.status(500).send('getLocation server error: ', error);
       });
   }
@@ -37,6 +38,7 @@ class Location {
     this.locationName = location.display_name;
     this.locationLat = location.lat;
     this.locationLon = location.lon;
+    this.cacheDate = cacheDate;
   }
 }
 
