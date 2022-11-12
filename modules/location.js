@@ -10,9 +10,11 @@ function getLocation(request, response) {
 
   if (cache[key] && Date.now() - cache[key].timestamp < 3600000) {
     console.log('getLocation cache hit');
+    console.log('cache hit date/time: ', Date().toLocaleString());
     response.status(200).send(cache[key]);
   } else {
     console.log('getLocation cache miss');
+    console.log('cache miss date/time: ', Date().toLocaleString());
     cache[key] = {};
     axios
       .get(url)
@@ -26,7 +28,6 @@ function getLocation(request, response) {
       })
       .catch (error => {
         console.error('getLocation axios error: ', error);
-        response.status(500).send('getLocation server error: ', error);
       });
   }
   console.log('location cache is: ', cache);
