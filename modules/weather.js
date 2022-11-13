@@ -5,7 +5,7 @@ const cache = require('./cache.js');
 
 function getWeather(lat, lon) {
   const key = 'weather-' + lat + lon;
-  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_API_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
+  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
 
   if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
     console.log('Cache hit');
@@ -25,7 +25,7 @@ function parseWeather(weatherData) {
     const weatherSummaries = weatherData.data.map(day => {
       return new Weather(day);
     });
-    return Promise.resolve(weatherSummaries);
+    return Promise.resolve(Object.assign({}, weatherSummaries));
   } catch (error) {
     return Promise.reject(error);
   }

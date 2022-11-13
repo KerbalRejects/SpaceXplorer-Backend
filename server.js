@@ -27,23 +27,23 @@ app.get('/test', (request, response) => {
 // route for getting user submitted location
 app.get('/location', getLocation);
 
-app.get('/', Handler.getProfile);
-app.post('/', Handler.createFavorite);
-app.delete('//:id', Handler.deleteFavorite);
-app.put('//:id', Handler.updateFavorite);
-app.get('/user', Handler.handleGetUser); 
+// app.get('/', Handler.getProfile);
+// app.post('/', Handler.createFavorite);
+// app.delete('//:id', Handler.deleteFavorite);
+// app.put('//:id', Handler.updateFavorite);
+// app.get('/user', Handler.handleGetUser); 
 
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
-app.get('/weather', weatherHandler);
+// app.get('/weather', weatherHandler);
 
-function weatherHandler(request, response) {
-    const { lat, lon } = request.query;
-    getWeather(lat, lon)
-      .then(summaries => response.send(summaries))
-      .catch((error) => {
-        console.error(error);
-        response.status(500).send(error.message);
-      });
-  }
+// function weatherHandler(request, response) {
+//     const { lat, lon } = request.query;
+//     getWeather(lat, lon)
+//       .then(summaries => response.send(summaries))
+//       .catch((error) => {
+//         console.error(error);
+//         response.status(500).send(error.message);
+//       });
+//   }

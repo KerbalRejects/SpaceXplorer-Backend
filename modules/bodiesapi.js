@@ -2,19 +2,17 @@
 
 const axios = require('axios');
 
-
-function celestialBodies (lat, lon, date, time) {
-
+const celestialBodies = async (lat, lon, date, time) => {
+    const url = 'https://astronomy.p.rapidapi.com/api/v2/bodies/positions'
     const options = {
         method: 'GET',
-        url: 'https://astronomy.p.rapidapi.com/api/v2/bodies/positions',
         params: {
           latitude: `${lat}`,
           longitude: `${lon}`,
           from_date: `${date}`,
           to_date: `${date}`,
           elevation: '500',
-          time: `${time}`
+          time: `${time}:00`
         },
         headers: {
           'X-RapidAPI-Key': `${process.env.RAPID_API}`,
@@ -22,14 +20,16 @@ function celestialBodies (lat, lon, date, time) {
         }
       };
       
-      axios.request(options).then(function (response) {
-          console.log(response.data);
-      }).catch(function (error) {
-          console.error(error);
-      });
-      
+
+  const req = await axios.get(url, options)
+  // console.log('Log', req.data.data);
+  return req.data.data
+  
+  
 
 }
 
-module.exports = bodiesapi;
+
+
+module.exports = celestialBodies;
 
