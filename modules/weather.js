@@ -5,7 +5,7 @@ const cache = require('./cache.js');
 
 function getWeather(lat, lon) {
   const key = 'weather-' + lat + lon;
-  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
+  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5&units=I`;
 
   if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
     console.log('Cache hit');
@@ -35,6 +35,8 @@ class Weather {
   constructor(day) {
     this.description = day.weather.description;
     this.date = day.datetime;
+    this.min_temp = day.min_temp;
+    this.high_temp = day.high_temp;
   }
 }
 
