@@ -40,22 +40,10 @@ function getLocation(request, response) {
           postStars(searchedLocation[0].locationLat, searchedLocation[0].locationLon, date).then(starMap => {
             getWeather(searchedLocation[0].locationLat, searchedLocation[0].locationLon).then(weatherData => {
               console.log('Bodies Response: ', res, 'Starmap Response: ', starMap.data, 'Weather data: ', weatherData)
-              response.status(200).send([cache[key], res, starMap.data.data, weatherData]);
-            
-            })
-            
-          })
-
-          
-        });
-        
-      
-        
-        
-        
-        
-      
-        
+              response.status(200).send([cache[key], res, starMap.data.data, weatherData]);     
+            })   
+          })    
+        }); 
       })
       .catch (error => {
         console.error('getLocation axios error: ', error);

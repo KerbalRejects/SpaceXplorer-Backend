@@ -8,12 +8,13 @@ const app = express();
 const getLocation = require('./modules/location');
 
 const getWeather = require('./modules/weather');
-// const verifyUser = require('./auth.js');
+const verifyUser = require('./auth.js');
 
 const Handler = require('./modules/handlers');
 app.use(cors());
 app.use(express.json());
-// app.use(verifyUser);
+app.get('/location', getLocation);
+app.use(verifyUser);
 const PORT = process.env.PORT || 3002;
 mongoose.connect(process.env.MONGOCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -25,14 +26,16 @@ app.get('/test', (request, response) => {
 
 
 // route for getting user submitted location
-app.get('/location', getLocation);
+
 
 // app.get('/profile', Handler.getProfile);
 app.post('/favorites', Handler.createFavorite);
 // app.delete('//:id', Handler.deleteFavorite);
 // app.put('//:id', Handler.updateFavorite);
 // app.get('/user', Handler.handleGetUser); 
-
+app.get('/', (req, res) => {
+    res.send('Ping')
+})
   
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
