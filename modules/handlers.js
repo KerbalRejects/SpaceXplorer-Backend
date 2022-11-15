@@ -19,7 +19,7 @@ Handler.getProfile = async (request, response, next) => {
 Handler.createFavorite = async (request, response, next) => {
     console.log('Request: ',request, 'Request.body: ',request.body)
     try {
-        const favorite = await Profiles.create({ ...request.body, email: request.user.email });
+        const favorite = await Profiles.create({ ...request.body});
         response.status(201).send(favorite);
     } catch (error) {
         error.customMessage = 'Something went wrong when creating your profile';
