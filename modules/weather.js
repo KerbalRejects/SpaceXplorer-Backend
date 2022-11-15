@@ -34,9 +34,12 @@ function parseWeather(weatherData) {
 class Weather {
   constructor(day) {
     this.description = day.weather.description;
+    this.icon = day.weather.icon;
     this.date = day.datetime;
     this.min_temp = day.min_temp;
     this.high_temp = day.high_temp;
+    this.sunrise = day.sunrise_ts;
+    this.sunset = day.sunset_ts;
   }
 }
 
