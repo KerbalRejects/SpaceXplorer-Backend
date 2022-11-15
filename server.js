@@ -28,7 +28,7 @@ app.get('/test', (request, response) => {
 // route for getting user submitted location
 
 
-// app.get('/profile', Handler.getProfile);
+app.get('/profile', Handler.getProfile);
 app.post('/favorites', Handler.createFavorite);
 // app.delete('//:id', Handler.deleteFavorite);
 // app.put('//:id', Handler.updateFavorite);

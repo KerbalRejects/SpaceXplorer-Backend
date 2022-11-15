@@ -6,6 +6,7 @@ const Profiles = require('../models/profile');
 const Handler = {};
 
 Handler.getProfile = async (request, response, next) => {
+    console.log(request);
     try {
         const profiles = await Profiles.find({ email: request.user.email });
         response.status(200).send(profiles);
@@ -58,7 +59,7 @@ Handler.updateFavorite = async (request, response, next) => {
 
 Handler.handleGetUser = (req, res) => {
     console.log('Getting the user');
-    res.send(req.user);
+    res.send(req.user.email);
 };
 
 module.exports = Handler;
