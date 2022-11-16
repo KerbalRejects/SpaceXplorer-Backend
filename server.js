@@ -19,9 +19,9 @@ const PORT = process.env.PORT || 3002;
 mongoose.connect(process.env.MONGOCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.get('/test', (request, response) => {
-
+    
     response.send('test request received')
-  
+    
 });
 
 
@@ -31,7 +31,7 @@ app.get('/test', (request, response) => {
 app.get('/profile', Handler.getProfile);
 app.post('/favorites', Handler.createFavorite);
 app.delete('/profile/:id', Handler.deleteFavorite);
-// app.put('//:id', Handler.updateFavorite);
+app.put('/profile/:id', Handler.updateFavorites);
 // app.get('/user', Handler.handleGetUser); 
 app.get('/', (req, res) => {
     res.send('Ping')

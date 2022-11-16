@@ -40,8 +40,11 @@ Handler.deleteFavorite = async (request, response, next) => {
 };
 
 Handler.updateFavorites = async (req, res, next) => {
+    console.log(req.body);
+    console.log(req.params);
     try {
-        const updatedFavorite = await Profiles.findByIdAndUpdate(req.params._id, { ...req.body, email: req.user.email}, { new: true, overwrite: true});
+        const updatedFavorite = await Profiles.findByIdAndUpdate(req.params.id, { "favorites.comment": req.body }, { new: true });
+        console.log(updatedFavorite);
         res.status(200).send(updatedFavorite);
     } catch(err) {
         err.customMessage = 'Something went wrong when updating your favorite: ';
