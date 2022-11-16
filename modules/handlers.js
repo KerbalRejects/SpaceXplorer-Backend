@@ -30,7 +30,7 @@ Handler.createFavorite = async (request, response, next) => {
 
 Handler.deleteFavorite = async (request, response, next) => {
     try {
-        await Profiles.findByIdAndDelete({ ...request.params.id, email: request.user.email });
+        await Profiles.findByIdAndDelete( request.params.id );
         response.status(200).send('Your favorite is deleted!');
     } catch (error) {
         error.customMessage = 'Something went wrong when deleting your favorite: ';
@@ -39,22 +39,16 @@ Handler.deleteFavorite = async (request, response, next) => {
     }
 };
 
-Handler.updateFavorite = async (request, response, next) => {
-    const { id } = request.params;
+Handler.updateFavorites = async (req, res, next) => {
     try {
-        // Model.findByIdAndUpdate(id, updatedData, options)
-        const comment = await Profiles.findOne({ _id: id, email: request.user.email });
-        if (!comment) response.status(400).send('Unable to update comment');
-        else {
-            const updatedComment = await Profiles.findByIdAndUpdate(id, { ...request.body, email: request.user.email }, { new: true, overwrite: true });
-            response.status(200).send(updatedComment);
-        }
-    } catch (error) {
-        error.customMessage = 'Something went wrong when updating your profile: ';
-        console.error(error.customMessage + error);
-        next(error);
+        const updatedFavorite = await Profiles.findByIdAndUpdate(req.params._id, { ...req.body, email: req.user.email}, { new: true, overwrite: true});
+        res.status(200).send(updatedFavorite);
+    } catch(err) {
+        err.customMessage = 'Something went wrong when updating your favorite: ';
+        console.error(err.customMessage + err);
+        next(err);
     }
-};
+}
 
 Handler.handleGetUser = (req, res) => {
     console.log('Getting the user');
