@@ -43,7 +43,7 @@ Handler.updateFavorites = async (req, res, next) => {
     console.log(req.body);
     console.log(req.params);
     try {
-        const updatedFavorite = await Profiles.findByIdAndUpdate(req.params.id, { "favorites.comment": req.body }, { new: true });
+        const updatedFavorite = await Profiles.findByIdAndUpdate(req.params.id,  req.body , { new: true });
         console.log(updatedFavorite);
         res.status(200).send(updatedFavorite);
     } catch(err) {
