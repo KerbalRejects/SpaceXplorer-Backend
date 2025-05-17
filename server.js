@@ -37,6 +37,12 @@ app.get('/', (req, res) => {
     res.send('Ping')
 })
   
+if (!process.env.WEATHER_KEY) {
+  console.error('WARNING: WEATHER_KEY environment variable is not set');
+} else {
+  console.log('WEATHER_KEY is configured (length:', process.env.WEATHER_KEY.length, ')');
+}
+
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
 // app.get('/weather', weatherHandler);
